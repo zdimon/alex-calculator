@@ -23,7 +23,6 @@ class ThreeProcCalc():
                 start_date = self._data['date_start']
                 end_date = payload[1][0]
                 self._tmp_rimains = self._data['sum']
-                #proc = self._data['sum']
             elif index == len(payload)-1:
                 start_date = payload[index][0]
                 end_date = self._data['date_end']
@@ -44,8 +43,6 @@ class ThreeProcCalc():
             lst.append([p['date'],p['sum']])
         res = [item for item in self.extract_pairs(lst)]
         return res
-        #res = [item for item in self.extract_pairs(lst)]
-        #return res
 
     def calc(self):
         print('Start')
