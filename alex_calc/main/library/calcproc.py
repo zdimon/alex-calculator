@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from calendar import monthrange
+from collections import OrderedDict
 
 class ThreeProcCalc():
 
@@ -9,6 +10,14 @@ class ThreeProcCalc():
         self._ostatok = data['sum']
 
     def get_month_range(self):
+        dates = [self._data['date_start'], self._data['date_end']]
+        start, end = [datetime.strptime(_, "%d/%m/%Y") for _ in dates]
+        return list(OrderedDict(((start + timedelta(_)).strftime(r"%Y-%m"), None) for _ in range((end - start).days)).keys())
+
+    def _get_month_range(self):
+        print('44444444444',self._data['date_start'],self._data['date_end'])
+        print(pd.date_range(self._data['date_start'],self._data['date_end'], 
+              freq='MS').strftime("%Y-%m").tolist())
         return pd.date_range(self._data['date_start'],self._data['date_end'], 
               freq='MS').strftime("%Y-%m").tolist()
 
@@ -176,13 +185,3 @@ if __name__ == '__main__':
 
     counter = ThreeProcCalc(data)
     counter.calc_debt()
-
-
-    {
-        'ostatok': 400, 
-        'history': [
-                    ['01/01/2001', '01/03/2001', 59, 1000, 4.85], 
-                    ['01/03/2001', '01/04/2001', 31, 900, 2.55], 
-                    ['01/04/2001', '01/01/2002', 275, 700, 22.6]
-            ]
-        }
