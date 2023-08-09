@@ -117,3 +117,9 @@ thead tr:nth-child(3) th {
   padding-left: 5px;
   cursor: pointer;
 }
+
+.top-link {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}

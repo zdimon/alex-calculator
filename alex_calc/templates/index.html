@@ -67,8 +67,10 @@
       <header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
         <div class="container-fluid d-flex align-items-center">
           <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+            <a href="/" class="top-link px-3">
+              Юридичний калькулятор
+            </a>
             
-            Юридичний калькулятор
           </h1>
 
 
@@ -76,8 +78,9 @@
           <a href="" class="ms-auto link-light" hreflang="ar">Зворотній зв'язок</a> -->
         </div>
       </header>
-
-      <div class="row container-fluid">
+      
+      <div class="container  px-4 py-2">
+        <!--
         <div class="col-2">
             <aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
                 <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">Перелік сервісов</h2>
@@ -93,47 +96,59 @@
                 </nav>
             </aside>
         </div>
+        -->
 
-        <div class="col-10">
+        <div class="pl-3">
             <h1>{{ page.title }}</h1>
             {{ page.content }}
             <a href="/report">Тестовый отчет</a>
             <div class="row">
               <h1>Расчет задолженности</h1>
             </div>
+            <div class="row">
+              <h3>Данные по кредиту</h3>
+            </div>
             <form method="POST" action="/report">
               {% csrf_token %}
                 <div class="row">
                   <div class="col">
-                    <label for="exampleInputEmail1">Дата начала</label>
-                    <input type="text" id="dp1" class="datepicker form-control" placeholder="Pick Date" name="credit_start" readonly><span class="fa fa-calendar"></span>
+                    <label for="exampleInputEmail1">Дата начала кредита</label>
+                    <input type="text" id="dp1" class="datepicker form-control" placeholder="Выберите дату" name="credit_start" readonly><span class="fa fa-calendar"></span>
                   </div>
 
 
                   <div class="col">
-                    <label for="exampleInputEmail1">Дата конца</label>
-                    <input type="text" id="dp1" class="datepicker form-control" placeholder="Pick Date" name="credit_end" readonly><span class="fa fa-calendar"></span>
+                    <label for="exampleInputEmail1">Дата конца кредита</label>
+                    <input type="text" id="dp1" class="datepicker form-control" placeholder="Выберите дату" name="credit_end" readonly><span class="fa fa-calendar"></span>
                   </div>
 
                   <div class="col">
-                    <label for="exampleInputEmail1">Сумма</label>
+                    <label for="exampleInputEmail1">Сумма кредита</label>
                     <input name="credit_sum" class="form-control" type="text" ><span class="fa fa-calendar"></span>
                   </div>
 
                   <div class="col">
-                    <input type="submit" class="btn btn-primary" name="Создать" value="Сохранить"/>
+                    <label for="exampleInputEmail1">Годовой процент</label>
+                    <input name="credit_proc" value=3 class="form-control" type="text" ><span class="fa fa-calendar"></span>
+                  </div>
+
+                  <div class="col">
+                    <input type="submit" class="btn btn-primary" name="Создать" value="Сформировать отчет"/>
                   </div>
               </div>
 
 
-
+              <div class="row">
+                <h3>Погашения</h3>
+              </div>
+              <div class="row" id="payments"></div>
               <div class="row">
 
                   <input id="add-payment" type="button" class="btn btn-primary" name="Сохранить" value="Добавить платеж"/>
             
               </div>
 
-              <div class="row" id="payments">
+              
 
               </div>
             </form>
@@ -142,7 +157,7 @@
 
         </div>
 
-    </div>
+    
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>

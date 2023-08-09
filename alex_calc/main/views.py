@@ -19,17 +19,19 @@ def report(request):
         credit_start = request.POST.get('credit_start')
         credit_end = request.POST.get('credit_end')
         credit_sum = int(request.POST.get('credit_sum'))
+        credit_proc = int(request.POST.get('credit_proc'))
         print('---',credit_start, credit_end, credit_sum)
         data =     {
             "date_start": credit_start,
             "date_end": credit_end,
             "sum": credit_sum,
-            "proc": 30,
+            "proc": credit_proc,
             "payments": []
         }
         for index, pd in enumerate(request.POST.getlist('datep[]')):
             data['payments'].append({"date": pd, "sum":int(request.POST.getlist('sump[]')[index])})
     else:
+        credit_proc = 3
         data =     {
             "date_start": "01/08/2001",
             "date_end": "09/01/2002",
@@ -46,4 +48,4 @@ def report(request):
     counter = ThreeProcCalc(data)
     data = counter.calc_debt()
     total = counter.count_total(data)
-    return render(request,'report.html', {"data": data, "total": total})
+    return render(request,'report.html', {"data": data, "total": total, "credit_proc": credit_proc})
