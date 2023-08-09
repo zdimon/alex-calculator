@@ -4,13 +4,33 @@ $(document).ready(function(){
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
         autoclose: true
-    });
+    }).on('changeDate', function (ev) {
+        check();
+    });;
     
     $('.cell').click(function(){
         $('.cell').removeClass('select');
         $(this).addClass('select');
+        
     });
 
+    function check() {
+        var is_checked = false
+        if($('#credit_start').val() !== '' && $('#credit_end').val() !== ''&& $('#credit_sum').val() !== ''){
+           is_checked = true;
+        }
+        console.log($('#credit_start').val())
+        if (is_checked) {
+            $('#make_report_button').removeAttr('disabled');
+        }     
+        return is_checked;
+    }
+    $('#make_report_button').attr('disabled','disabled');
+   
+
+    $('#credit_sum').on( "input", function() {
+        check();
+      } );
 
     $('#add-payment').click(function(){
         var tpl = `
