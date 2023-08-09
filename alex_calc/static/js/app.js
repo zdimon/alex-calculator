@@ -22,10 +22,12 @@ $(document).ready(function(){
         console.log($('#credit_start').val())
         if (is_checked) {
             $('#make_report_button').removeAttr('disabled');
+            $('#add-payment').removeAttr('disabled');
         }     
         return is_checked;
     }
     $('#make_report_button').attr('disabled','disabled');
+    $('#add-payment').attr('disabled','disabled');
    
 
     $('#credit_sum').on( "input", function() {
