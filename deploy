@@ -1,4 +1,4 @@
 git add --all
 git commit -m 'auto commit'
 git push
-ssh webmaster@128.140.2.229 'cd alex-calculator; git pull;cd alex_calc; source ./venv/bin/activate; ./manage.py migrate' 
+ssh webmaster@128.140.2.229 'cd alex-calculator; git pull; source ./venv/bin/activate; cd alex_calc; python3 manage.py migrate' 
