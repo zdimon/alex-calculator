@@ -46,6 +46,6 @@ def report(request):
         }
 
     counter = ThreeProcCalc(data)
-    data = counter.calc_debt()
+    data = counter.make_report()
     total = counter.count_total(data)
     return render(request,'report.html', {"data": data, "total": total, "credit_proc": credit_proc})
