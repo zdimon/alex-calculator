@@ -9,4 +9,3 @@ uwsgi --http-socket /home/webmaster/alex-calculator/alex.sock \
  --processes 2 \
  --threads 2 
  --pidfile /tmp/uwsgi.pid
- --touch-reload /tmp/uwsgireload
