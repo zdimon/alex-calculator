@@ -26,3 +26,9 @@ jobs:
         script: |
           cd ~/alex-calculator
           git pull 
+          source ./venv/bin/activate
+          pip install -r requirements.txt
+          cd alex_calc
+          python3 manage.py migrate
+          touch /home/webmaster/uwsgireload
+
