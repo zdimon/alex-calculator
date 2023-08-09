@@ -32,6 +32,11 @@ $(document).ready(function(){
         check();
       } );
 
+      $('#add-payment').on( "click", function() {
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+      } );
+      
+
     $('#add-payment').click(function(){
         var tpl = `
         <div class="row">
