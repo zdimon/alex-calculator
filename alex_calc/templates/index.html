@@ -14,23 +14,23 @@
     <form method="POST" action="/report">
       {% csrf_token %}
         <div class="row">
-          <div class="col col-sm-6  col-lg-3">
+          <div class="col col-6 col-sm-6  col-lg-3">
             <label for="exampleInputEmail1">Дата начала кредита</label>
             <input type="text" id="credit_start" class="datepicker form-control" placeholder="Выберите дату" name="credit_start" readonly><span class="fa fa-calendar"></span>
           </div>
 
 
-          <div class="col col-sm-6 col-lg-3">
+          <div class="col  col-6 col-sm-6 col-lg-3">
             <label for="exampleInputEmail1">Дата конца кредита</label>
             <input type="text" id="credit_end" class="datepicker form-control" placeholder="Выберите дату" name="credit_end" readonly><span class="fa fa-calendar"></span>
           </div>
 
-          <div class="col col-sm-6 col-lg-3">
+          <div class="col col-6 col-sm-6 col-lg-3">
             <label for="exampleInputEmail1">Сумма кредита</label>
             <input name="credit_sum" class="form-control" type="text" id="credit_sum"><span class="fa fa-calendar"></span>
           </div>
 
-          <div class="col col-sm-6 col-lg-3">
+          <div class="col col-6 col-sm-6 col-lg-3">
             <label for="exampleInputEmail1">Годовой процент</label>
             <input name="credit_proc" value=3 class="form-control" type="text" ><span class="fa fa-calendar"></span>
           </div>
