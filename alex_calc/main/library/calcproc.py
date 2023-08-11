@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import pandas as pd
 from calendar import monthrange
 from collections import OrderedDict
 
@@ -115,6 +114,7 @@ class ThreeProcCalc():
             y = month.split('-')[0]
             m = month.split('-')[1]
             days = monthrange(int(y), int(m))[1]
+            print(monthrange(int(y), int(m)), '999999999', month)
             record = {
                 "month": month,
                 "month_verb": self.month_verb(month),
