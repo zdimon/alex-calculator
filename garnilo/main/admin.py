@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from main.models import Person
+
+
+class PersonAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Person, PersonAdmin)
