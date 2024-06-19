@@ -1,0 +1,11 @@
+uwsgi --http-socket /home/webmaster/alex-calculator/alex.sock \
+ --plugins python3 \
+ --chdir /home/webmaster/alex-calculator/alex_calc  \
+ --module alex_calc.wsgi \
+ --virtualenv /home/webmaster/alex-calculator/venv \
+ --buffer-size 32768 \
+ --uid webmaster \
+ --gid webmaster \
+ --processes 2 \
+ --threads 2 
+ --pidfile /tmp/uwsgi.pid

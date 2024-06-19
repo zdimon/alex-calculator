@@ -1,0 +1,4 @@
+git add --all
+git commit -m 'auto commit'
+git push
+ssh webmaster@128.140.2.229 'cd alex-calculator; git pull; source ./venv/bin/activate; pip install -r requirements.txt; cd alex_calc; python3 manage.py migrate; touch /home/webmaster/uwsgireload' 

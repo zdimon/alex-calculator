@@ -1,6 +1,6 @@
-from datetime import datetime
-import pandas as pd
+from datetime import datetime, timedelta
 from calendar import monthrange
+from collections import OrderedDict
 
 class ThreeProcCalc():
 
@@ -9,8 +9,9 @@ class ThreeProcCalc():
         self._ostatok = data['sum']
 
     def get_month_range(self):
-        return pd.date_range(self._data['date_start'],self._data['date_end'], 
-              freq='MS').strftime("%Y-%m").tolist()
+        dates = [self._data['date_start'], self._data['date_end']]
+        start, end = [datetime.strptime(_, "%d/%m/%Y") for _ in dates]
+        return list(OrderedDict(((start + timedelta(_)).strftime(r"%Y-%m"), None) for _ in range((end - start).days)).keys())
 
     def calc_sum_proc(self,sum, days):
         return round(((sum/100) * (self._data['proc']/365))*days,2)
@@ -20,6 +21,36 @@ class ThreeProcCalc():
         for item in report:
             sum += item['proc']
         return round(sum,2)
+    
+    @staticmethod
+    def month_verb(date):
+        m = int(date.split('-')[1])
+        y = date.split('-')[0]
+        if m==1:
+            return '%s %s' % ('Январь',y)
+        elif m ==2:
+            return '%s %s' % ('Февраль',y)
+        elif m ==3:
+            return '%s %s' % ('Март',y)
+        elif m ==4:
+            return '%s %s' % ('Апрель',y)
+        elif m ==5:
+            return '%s %s' % ('Май',y)
+        elif m ==6:
+            return '%s %s' % ('Июнь',y)
+        elif m ==7:
+            return '%s %s' % ('Июль',y)
+        elif m ==8:
+            return '%s %s' % ('Август',y)
+        elif m ==9:
+            return '%s %s' % ('Сентябрь',y)
+        elif m ==10:
+            return '%s %s' % ('Октябрь',y)
+        elif m ==11:
+            return '%s %s' % ('Ноябрь',y)
+        elif m ==12:
+            return '%s %s' % ('Декабрь',y)
+        return 'неизвестно %s' % m
 
     def count_procent(self,report):
         for item in report:
@@ -51,9 +82,7 @@ class ThreeProcCalc():
                         self._ostatok = self._ostatok - payment['sum']
                         end_summa = self.calc_sum_proc(self._ostatok,diff.days)
                         item['proc'] = start_summa + end_summa
-                        item['repayment'] = item['repayment'] + payment['sum']
-                        #print('first payment - ',start_summa, end_summa)
-                      
+                        item['repayment'] = item['repayment'] + payment['sum']                      
                         print('have next--',next_payment['sum'],'diff-',diff)
             elif count_payments==1:
                 'один платеж'
@@ -78,15 +107,17 @@ class ThreeProcCalc():
             item['ostatok'] = self._ostatok
 
     
-    def calc_debt(self):
+    def make_report(self):
         monhts = self.get_month_range()
         report = []
         for month in monhts:
             y = month.split('-')[0]
             m = month.split('-')[1]
             days = monthrange(int(y), int(m))[1]
+            print(monthrange(int(y), int(m)), '999999999', month)
             record = {
                 "month": month,
+                "month_verb": self.month_verb(month),
                 "ostatok": 0,
                 "proc": 0,
                 "days": days,
@@ -107,58 +138,6 @@ class ThreeProcCalc():
         print(report)
         return report
 
-    @staticmethod
-    def count_days(start,end):
-        start = datetime.strptime(start, "%d/%m/%Y")
-        end = datetime.strptime(end, "%d/%m/%Y")
-        return end - start
-
-    def get_remains(self):
-        remains = self._data['sum']
-        for item in self._data['payments']:
-            remains = remains - item["sum"]
-        return remains
-
-    def extract_pairs(self, payload):
-        for index, item in enumerate(payload):
-            if index == 0:
-                start_date = self._data['date_start']
-                end_date = payload[1][0]
-                self._tmp_rimains = self._data['sum']
-            elif index == len(payload)-1:
-                start_date = payload[index][0]
-                end_date = self._data['date_end']
-                self._tmp_rimains = self._tmp_rimains - payload[index-1][1]
-            else:
-                start_date = payload[index][0]
-                end_date = payload[index+1][0]
-                self._tmp_rimains = self._tmp_rimains - payload[index-1][1]
-            
-            diff = self.count_days(start_date, end_date).days
-            # sum = сумма кредита * 3% * кол-во дней просрочки / (365 или 366 или 360)
-            fine = ((self._data['sum']/100) * (self._data['proc']/365))*diff
-
-            yield [start_date, end_date, diff, self._tmp_rimains, round(fine,2)]
-
-    def make_list(self):
-        print(self._data['proc']/365)
-        lst = []
-        for p in data['payments']:
-            lst.append([p['date'],p['sum']])
-        res = [item for item in self.extract_pairs(lst)]
-        return res
-
-    def calc(self):
-        print('Start')
-        payment_list = self.make_list()
-        out = {
-                "ostatok": self.get_remains(),
-                "history":  self.make_list()
-              }
-        return out
-
-
-
 
 if __name__ == '__main__':
     data =     {
@@ -175,14 +154,4 @@ if __name__ == '__main__':
     }
 
     counter = ThreeProcCalc(data)
-    counter.calc_debt()
-
-
-    {
-        'ostatok': 400, 
-        'history': [
-                    ['01/01/2001', '01/03/2001', 59, 1000, 4.85], 
-                    ['01/03/2001', '01/04/2001', 31, 900, 2.55], 
-                    ['01/04/2001', '01/01/2002', 275, 700, 22.6]
-            ]
-        }
+    counter.make_report()
