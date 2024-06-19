@@ -1,0 +1,1 @@
+ssh webmaster@webmonstr.com 'cd alex-calculator; git pull'
