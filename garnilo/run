@@ -1,0 +1,4 @@
+cd ..
+. ./venv/bin/activate
+cd garnilo
+./manage.py runserver
