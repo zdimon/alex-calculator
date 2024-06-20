@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block header %}
+
+    <a href="{% url 'rota_list' rota_id=person.rota.id%}" 
+    class="navbar-brand d-flex align-items-center">
+      <strong>{{ person.rota }} рота</strong>
+    </a>
+
+    <a href="{% url 'vzvod_list' rota_id=person.rota.id vzvod_id=person.vzvod.id%}" 
+    class="navbar-brand d-flex align-items-center">
+        <strong>{{ person.vzvod }} взвод</strong>
+    </a>
+
+    <a href="" 
+    class="navbar-brand d-flex align-items-center">
+        <strong>{{ person }} </strong>
+    </a>
+
+{% endblock %}
+
+{% block center %}
+    <h4>{{ person }}</h4>
+    <h6>Історія діслокацій</h6>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Назва</th>
+          <th scope="col">Відповідальний</th>
+          <th scope="col">Дата</th>
+          <th scope="col">Привід</th>
+        </tr>
+      </thead>
+        <tbody>
+
+          {% for move in moves %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+              {{ move }}
+              <a href="{% url 'change_position' person_id=move.person.id %}"><i class="fa fa-edit"></i></a>
+            </td>
+            <td>
+              {{ move.editor }}
+            </td>
+            <td>
+              {{ move.created_at }}
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+{% endblock %}

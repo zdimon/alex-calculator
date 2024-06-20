@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block header %}
+
+    <a href="{% url 'rota_list' rota_id=person.rota.id%}" 
+    class="navbar-brand d-flex align-items-center">
+      <strong>{{ person.rota }} рота</strong>
+    </a>
+
+    <a href="{% url 'vzvod_list' rota_id=person.rota.id vzvod_id=person.vzvod.id%}" 
+    class="navbar-brand d-flex align-items-center">
+        <strong>{{ person.vzvod }} взвод</strong>
+    </a>
+
+    <a href="" 
+    class="navbar-brand d-flex align-items-center">
+        <strong>{{ person }} </strong>
+    </a>
+
+{% endblock %}
+
+{% block center %}
+    <h4>{{ person }}</h4>
+    <h5>Зміна діслокації</h5>
+    
+
+    <form>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Примітка</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Виберіть нову діслокацію</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          {% for position in positions %}
+            
+            <option>{{ position }}</option>
+
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mb-2">Зберегти</button>
+
+    </form>
+
+{% endblock %}

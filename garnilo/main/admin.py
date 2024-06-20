@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from main.models import Person, Rota, Vzvod
+from main.models import Person, Rota, Vzvod, Instructor, Position, Position2Person
 
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ['surname','rota', 'vzvod']
+    list_display = ['surname','rota', 'vzvod', 'position']
 
 
 admin.site.register(Person, PersonAdmin)
@@ -20,3 +20,22 @@ class VzvodAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Vzvod, VzvodAdmin)
+
+class InstructorAdmin(admin.ModelAdmin):
+    list_display = ['name','phone', 'can_edit']
+
+
+admin.site.register(Instructor, InstructorAdmin)
+
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ['name', 'color']
+
+
+admin.site.register(Position, PositionAdmin)
+
+
+class Position2PersonAdmin(admin.ModelAdmin):
+    list_display = ['position', 'person', 'editor', 'created_at']
+
+
+admin.site.register(Position2Person, Position2PersonAdmin)

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block header %}
+
+<a href="{% url 'rota_list' rota_id=rota.id%}" class="navbar-brand d-flex align-items-center">
+  <strong>{{ rota }} рота</strong>
+</a>
+
+    {% for vzvod in vzvods %}
+        <a href="{% url 'vzvod_list' rota_id=rota.id vzvod_id=vzvod.id%}" class="navbar-brand d-flex align-items-center">
+            {{ vzvod }} взвод
+        </a>
+    {% endfor %}
+
+    {% if vzvod %}
+        <a href="{% url 'vzvod_list' rota_id=rota.id vzvod_id=vzvod.id%}" class="navbar-brand d-flex align-items-center">
+            <strong>{{ vzvod }} взвод</strong>
+        </a>
+    {% endif %}
+
+{% endblock %}
+
+{% block center %}
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in persons %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>
+          
+            <p >
+                <i class="fa fa-address-book-o {{ p.position.color }}" aria-hidden="true"></i>
+                <a class="{{ p.position.color }} font-weight-bold" href="{% url 'person_detail' person_id=p.id %}">{{ p.short_name }}</a>
+            </p>
+        </td>
+        <td><p class="{{ p.position.color }}">{{ p.position }}</p></td>
+        <td><a href="{% url 'change_position' person_id=p.id %}"><i class="fa fa-edit"></i></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endblock %}

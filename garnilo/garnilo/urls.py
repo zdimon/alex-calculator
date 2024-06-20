@@ -16,9 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from main.views import index
+from main.views import index, rota_list, vzvod_list, person_detail, change_position
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
+    path("rota/<int:rota_id>/", rota_list, name='rota_list'),
+    path("rota/<int:rota_id>/vzvod/<int:vzvod_id>", vzvod_list, name='vzvod_list'),
+    path("person/<int:person_id>/", person_detail, name='person_detail'),
+    path("change/position/<int:person_id>/", change_position, name='change_position'),
 ]
