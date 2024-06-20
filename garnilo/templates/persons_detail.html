@@ -4,23 +4,23 @@
 
     <a href="{% url 'rota_list' rota_id=person.rota.id%}" 
     class="navbar-brand d-flex align-items-center">
-      <strong>{{ person.rota }} рота</strong>
+      <strong>{{ person.rota }} Р</strong>
     </a>
 
     <a href="{% url 'vzvod_list' rota_id=person.rota.id vzvod_id=person.vzvod.id%}" 
     class="navbar-brand d-flex align-items-center">
-        <strong>{{ person.vzvod }} взвод</strong>
+        <strong>{{ person.vzvod }} В</strong>
     </a>
 
     <a href="{% url 'person_detail' person_id=person.id %}"
     class="navbar-brand d-flex align-items-center">
-        <strong>{{ person }} </strong>
+        <strong>{{ person.short_name }} </strong>
     </a>
 
 {% endblock %}
 
 {% block center %}
-    <h4>{{ person }}</h4>
+    
 
 
     <table class="table">
@@ -28,6 +28,21 @@
           <tr>
             <th scope="row">
               Телефон: {{ person.phone }}
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              Телефон 2: {{ person.phone2 }}
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              Адреса: {{ person.addres }}
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              Дата народження: {{ person.dr }}
             </th>
           </tr>
           <tr>

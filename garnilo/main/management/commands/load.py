@@ -75,6 +75,10 @@ class Command(BaseCommand):
                     p.surname = arr[0]
                     p.name = arr[1]
                     p.last_name = arr[2]
+                    p.phone = '0508762834'
+                    p.phone2 = 'батько 0508745834'
+                    p.addres = 'Хмельницька обл. село Мухосранське буд. 789'
+                    p.dr = '23.06.82'
                     p.rota = rota
                     p.vzvod = vzvod
                     random_position = Position.objects.order_by('?')[0]

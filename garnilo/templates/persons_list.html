@@ -3,12 +3,12 @@
 {% block header %}
 
 <a href="{% url 'rota_list' rota_id=rota.id%}" class="navbar-brand d-flex align-items-center">
-  <strong>{{ rota }} рота</strong>
+  <strong>{{ rota }} Р</strong>
 </a>
 
     {% for vzvod in vzvods %}
         <a href="{% url 'vzvod_list' rota_id=rota.id vzvod_id=vzvod.id%}" class="navbar-brand d-flex align-items-center">
-            {{ vzvod }} взвод
+            {{ vzvod }} В
         </a>
     {% endfor %}
 
