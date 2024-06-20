@@ -31,7 +31,7 @@ def vzvod_list(request,rota_id, vzvod_id):
 
 def person_detail(request,person_id):
     person = Person.objects.get(pk=person_id)
-    moves = Position2Person.objects.filter(person=person)
+    moves = Position2Person.objects.filter(person=person).order_by('-id')
     return render(request,'persons_detail.html', {"person": person, "moves": moves})
 
 def change_position(request, person_id):
@@ -49,7 +49,6 @@ def change_position(request, person_id):
             p2p.editor = random_instructor
             p2p.file.save(request.FILES['file'].name,File(request.FILES['file']))
             p2p.save()
-            print('ddddddd')
         person.save()
         return redirect("person_detail", person_id=person.id)
 
