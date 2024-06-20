@@ -12,7 +12,7 @@
         <strong>{{ person.vzvod }} взвод</strong>
     </a>
 
-    <a href="" 
+    <a href="{% url 'person_detail' person_id=person.id %}"
     class="navbar-brand d-flex align-items-center">
         <strong>{{ person }} </strong>
     </a>
