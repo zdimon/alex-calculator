@@ -1,5 +1,12 @@
 from django.shortcuts import render
-from .models import Person, Rota, Vzvod, Position2Person, Position
+from .models import Person, Rota, Vzvod, Position2Person, Position, Instructor
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from pathlib import Path
+from garnilo.settings import BASE_DIR
+from django.core.files import File
+from django.conf import settings
+import os
 
 # Create your views here.
 
@@ -28,6 +35,24 @@ def person_detail(request,person_id):
     return render(request,'persons_detail.html', {"person": person, "moves": moves})
 
 def change_position(request, person_id):
+    if request.method == "POST":
+        person = Person.objects.get(pk=request.POST.get('person_id'))
+        position = Position.objects.get(pk=request.POST.get('position_id'))
+        person.position = position
+        if request.FILES["file"]:
+            #save_path = os.path.join(settings.MEDIA_ROOT, 'uploads', request.FILES['file'])
+            #path = '%s/%s' % (BASE_DIR,'docs/')
+            p2p = Position2Person()
+            p2p.person = person
+            p2p.position = position
+            random_instructor = Instructor.objects.order_by('?')[0]
+            p2p.editor = random_instructor
+            p2p.file.save(request.FILES['file'].name,File(request.FILES['file']))
+            p2p.save()
+            print('ddddddd')
+        person.save()
+        return redirect("person_detail", person_id=person.id)
+
     person = Person.objects.get(pk=person_id)
     ptmp = Position.objects.all()
     positions = []

@@ -26,3 +26,9 @@ urlpatterns = [
     path("person/<int:person_id>/", person_detail, name='person_detail'),
     path("change/position/<int:person_id>/", change_position, name='change_position'),
 ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += [
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
